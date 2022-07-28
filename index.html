@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Pipodoro</title>
+  <meta name="description" content="Pomodoro timer with Picture-In-Picture & Sync capabilities. PWA App with zero dependencies.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!--
+  <meta property="og:title" content="Pipodoro. Pomodoro timer with Picture-In-Picture & Sync capabilities. PWA App with zero dependencies.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pipodo.ro">
+  -->
+  <style>
+    :root {
+      --ff-mono: monospace;
+      --ff-default: sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+    }
+
+    input[type="text"] {
+      border: 0
+    }
+
+    button {
+      border: 0;
+    }
+
+    .input-timer {
+      /* font-family: var(--ff-mono); */
+      font-variant-numeric: tabular-nums; 
+      font-size: 25vw;
+      text-align: center;
+      width: 80vw;
+      background-color: transparent;
+    }
+
+    .button-start {
+      width: 25vw;
+      height: 14vw;
+      font-size: 8vw;
+      background: #e53835;
+      color: white;
+      padding: 0;
+      box-shadow: 10px 10px black;
+    }
+
+    .button-start:hover {
+      transform: translate(10px, 10px);
+      box-shadow: none;
+    }
+
+    .start-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .input-container {
+      border: 10px solid #e53935;
+      box-shadow: 10px 10px black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="timer">
+    <!-- 
+    <div class="input-container">
+      <input type="text" value="25:00" class="input-timer" /><br>
+    </div>
+
+    <div class="start-container">
+      <button type="submit" class="button-start">Start</button>
+    </div>
+    -->
+  </div>
+
+  <script type="module">
+    import {app, timer} from './app.js';
+    app(timer);
+  </script>
+</body>
+
+</html>
