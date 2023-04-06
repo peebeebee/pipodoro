@@ -73,8 +73,11 @@
 </head>
 
 <body>
-  <div class="timer">
-    <!-- 
+    <button id="start" type="button">GO</button>
+    <video id="video" controls></video>
+    <!--
+    <button id="settings" type="button">SETTINGS</button>
+
     <div class="input-container">
       <input type="text" value="25:00" class="input-timer" /><br>
     </div>
@@ -86,8 +89,17 @@
   </div>
 
   <script type="module">
-    import {app, timer} from './app.js';
-    app(timer);
+    import {app} from './app.js';
+    import {timer} from './timer.js';
+    import {ui} from './ui.js';
+  
+    app(
+      ui({
+        startButton: document.getElementById('start'),
+        video: document.getElementById('video')
+      }), 
+      timer()
+    );
   </script>
 </body>
 
