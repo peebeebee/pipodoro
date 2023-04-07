@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <title>Pipodoro</title>
@@ -14,93 +13,122 @@
   -->
   <style>
     :root {
-      --ff-mono: monospace;
-      --ff-default: sans-serif;
+      --background: #000;
+      --color: #fff;
     }
 
     body {
+      background: var(--background);
+      color: var(--color);
       min-height: 100vh;
+      overflow: hidden;
       margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      color: white;
-    }
-
-    input[type="text"] {
-      border: 0
+      display: grid;
     }
 
     button {
-      border: 0;
-    }
-
-    .input-timer {
-      /* font-family: var(--ff-mono); */
-      font-variant-numeric: tabular-nums; 
-      font-size: 25vw;
-      text-align: center;
-      width: 80vw;
-      background-color: transparent;
-    }
-
-    .button-start {
-      width: 25vw;
-      height: 14vw;
-      font-size: 8vw;
-      background: #e53835;
-      color: white;
+      appearance: none;
+      background: none;
+      border: none;
+      background: var(--background);
+      color: var(--color);
       padding: 0;
-      box-shadow: 10px 10px black;
-    }
-
-    .button-start:hover {
-      transform: translate(10px, 10px);
-      box-shadow: none;
-    }
-
-    .start-container {
+      font-size: 4rem;
+      line-height: 1;
+      font-family: monospace;
+      width: 70px;
+      height: 70px;
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 10px;
+      transition: all 0.2s ease-in-out;
     }
 
-    .input-container {
-      border: 10px solid #e53935;
-      box-shadow: 10px 10px black;
+    button path {
+      transition: all 0.2s ease-in-out;
+      stroke: var(--color);
+      stroke-width: 10px;
+    }
+
+    button:hover {
+      background-color: var(--color);
+    }
+
+    button:hover path {
+      stroke: var(--background);
+      stroke-width: 15px;
+    }
+
+    #app {
+      display: grid;
+      grid-template-areas: 'a';
+    }
+
+    #video {
+      background-color: var(--background);
+      width: 100%;
+      grid-area: a;
+      align-self: center;
+    }
+
+    #controls {
+      grid-area: a;
+      display: grid;
+      grid-template-areas: 'c';
+      z-index: 2;
+    }
+
+    #play,
+    #pause {
+      grid-area: c;
+      align-self: end;
+      justify-self: start;
+    }
+
+    #popout {
+      grid-area: c;
+      align-self: end;
+      justify-self: end;
     }
   </style>
 </head>
 
 <body>
-    <button id="start" type="button">GO</button>
-    <video id="video" controls></video>
-    <!--
-    <button id="settings" type="button">SETTINGS</button>
-
-    <div class="input-container">
-      <input type="text" value="25:00" class="input-timer" /><br>
-    </div>
-
-    <div class="start-container">
-      <button type="submit" class="button-start">Start</button>
-    </div>
-    -->
-  </div>
 
   <script type="module">
-    import {app} from './app.js';
+    import {App} from './app.js';
     import {timer} from './timer.js';
-    import {ui} from './ui.js';
+    import {UI} from './ui.js';
   
-    app(
-      ui({
-        startButton: document.getElementById('start'),
-        video: document.getElementById('video')
+    window.app = new App(
+      new UI({
+        video: document.getElementById('video'),
+        startButton: document.getElementById('play'),
+        pauseButton: document.getElementById('pause'),
+        pipButton: document.getElementById('popout'),
       }), 
-      timer()
+      timer
     );
   </script>
-</body>
 
+  <div id="app">    
+    <video id="video" muted="muted" autoplay="true"></video>
+
+    <div id="controls">
+        <button type="button" id="play" onclick="app.start()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125"><path fill="none" stroke="red" stroke-width="10" d="M114 63 5 117V8l109 55Z"/></svg>
+        </button>
+
+        <button type="button" id="pause" onclick="app.pause()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125"><path fill="none" stroke="red" stroke-width="10" d="M5 5h115v115H5z"/></svg>
+        </button>
+
+        <button type="button" id="popout" onclick="app.popout()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 125"><g fill="none" fill-rule="evenodd" stroke="red" stroke-width="10"><path d="M5 5h115v115H5z"/><path d="M67 67h53v53H67z"/></g></svg>
+        </button>
+    </div>
+  </div>
+</body>
 </html>
