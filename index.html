@@ -52,27 +52,26 @@
   </div>
 
   <script type="module">
-    import {timer} from './timer.js';
+    import {Timer} from './timer.js';
     import {UI} from './ui.js';
+
+    let ui;
+    let timer;
 
     window.app = {
       setup() {
-        console.log('setup');
-        const ui = new UI({video: document.getElementById('video')});
+        ui = new UI({video: document.getElementById('video')});
+        timer = new Timer({seconds: 1500});
         ui.setTime(timer.seconds);
-
-        // TODO: timer.addEventListener
-        timer.onTick((time) => ui.setTime(time));
+        timer.addEventListener('tick', (evt) => ui.setTime(evt.detail));
       },
       pause() {
         timer.pause();
       },
       play() {
-        console.log('play');
         timer.start();
       }
     }
-
   </script>
 </body>
 </html>

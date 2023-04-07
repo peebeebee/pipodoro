@@ -1,6 +1,5 @@
 export class UI {
   #painter
-  #player
 
   /**
    * @param {Object} parameters

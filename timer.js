@@ -1,43 +1,36 @@
-// TODO: Rewrite this as an EventTarget
+export class Timer extends EventTarget {
 
-const tickCallbacks = new Set();
-let interval = null;
+  seconds;
+  #interval = null;
 
-function _tick(seconds) {
-  tickCallbacks.forEach(cb => cb(seconds));
-}
-
-export const timer = {
-  seconds: 25 * 60,
+  constructor({seconds}) {
+    super();
+    this.seconds = seconds;
+  }
 
   start() {
-    interval = setInterval(() => {
+    this.#interval = setInterval(() => {
       this.seconds--;
       if(this.seconds === 0) {
         this.stop();
       }
-      _tick(this.seconds);
+      this.#tick(this.seconds);
     }, 1000);
-  },
+  }
 
   stop() {
-    clearInterval(interval);
-    interval = null;
+    clearInterval(this.#interval);
+    this.#interval = null;
     this.seconds = 25 * 60;
-    _tick(this.seconds);
-  },
+    this.#tick(this.seconds);
+  }
 
   pause() {
-    clearInterval(interval);
-    interval = null;
-  },
+    clearInterval(this.#interval);
+    this.#interval = null;
+  }
 
-  /**
-   * 
-   * @param {Function} callbackFn 
-   */
-  onTick(callbackFn) {
-    tickCallbacks.add(callbackFn);
-    return this;
+  #tick(seconds) {
+    this.dispatchEvent(new CustomEvent('tick', {detail: seconds}));
   }
 }
