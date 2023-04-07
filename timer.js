@@ -1,3 +1,5 @@
+// TODO: Rewrite this as an EventTarget
+
 const tickCallbacks = new Set();
 let interval = null;
 

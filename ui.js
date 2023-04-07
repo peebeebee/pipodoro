@@ -1,40 +1,14 @@
 export class UI {
   #painter
   #player
-  #startButton
-  #pauseButton
 
   /**
    * @param {Object} parameters
    * @param {HTMLVideoElement} parameters.video
-   * @param {HTMLButtonElement} parameters.startButton
-   * @param {HTMLButtonElement} parameters.pauseButton
-   * @param {HTMLButtonElement} parameters.pipButton
    */
-  constructor({video, startButton, pauseButton, pipButton}) {
+  constructor({video}) {
     this.#painter = new Painter();
-    this.#player = new Player(this.#painter, video);
-    this.#startButton = startButton;
-    this.#pauseButton = pauseButton;
-    this.setup();
-  }
-
-  setup() {
-    this.#toggle(this.#pauseButton, false);
-  }
-
-  setStart() {
-    this.#toggle(this.#startButton, false);
-    this.#toggle(this.#pauseButton, true);
-  }
-
-  setPause() {
-    this.#toggle(this.#startButton, true);
-    this.#toggle(this.#pauseButton, false);
-  }
-
-  popout() {
-    this.#player.popout();
+    video.srcObject = this.#painter.stream;
   }
 
   /** 
@@ -52,44 +26,13 @@ export class UI {
   #formatTime(seconds) {
     return new Date(seconds * 1000).toISOString().substring(14, 19)
   }
-
-  #toggle(button, show) {
-    button.style.display = show ? 'block' : 'none';
-  }
-}
-
-class Player {
-
-  #video
-  #isPip = false;
-
-  /**
-   * @param {HTMLVideoElement} video
-   * @param {Painter} painter
-   */
-  constructor(painter, video) {
-    video.muted = true;
-    video.controls = false;
-    video.srcObject = painter.stream;
-    // video.play();
-    this.#video = video;
-  }
-
-  popout() {
-    if(this.#isPip) {
-      document.exitPictureInPicture();
-    } else {
-      this.#video.requestPictureInPicture();
-    }
-    this.#isPip = !this.#isPip;
-  }
 }
 
 class Painter {
 
+  stream;
   #canvas
   #ctx
-  stream;
 
   constructor() {
     const canvas = document.createElement('canvas');
