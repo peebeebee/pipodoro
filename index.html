@@ -21,6 +21,7 @@
       background: var(--background);
       color: var(--color);
       min-height: 100vh;
+      min-height: -webkit-fill-available;
       overflow: hidden;
       margin: 0;
       display: grid;
@@ -110,7 +111,7 @@
   </script>
 
   <div id="app">    
-    <video id="video" muted="muted" autoplay="true"></video>
+    <video id="video" muted="muted" autoplay="true" playsinline></video>
 
     <div id="controls">
         <button type="button" id="play" onclick="app.start()">

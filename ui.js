@@ -71,7 +71,7 @@ class Player {
     video.muted = true;
     video.controls = false;
     video.srcObject = painter.stream;
-    video.play();
+    // video.play();
     this.#video = video;
   }
 
