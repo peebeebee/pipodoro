@@ -1,4 +1,4 @@
-# PIPODORO
+# PiPODORO
 
 ## What is it? 
 It's a 25minute countdown timer for work (Pomodoro technique)
