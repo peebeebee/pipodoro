@@ -1,6 +1,23 @@
 <!DOCTYPE html>
-<script>
-  // test.js
+<script type="module">
+
+/**
+ * convertStringToSeconds
+ **/
+import {convertStringToSeconds} from './utils.js';
+[
+  ['',      0],
+  ['0:20',  20],
+  ['00:20', 20],
+  ['1:20',  80],
+  ['10:20', 620],
+  ['xx:yy', 0]
+].forEach(([given, result]) => {
+  it(`convertStringToSeconds should return ${result} for ${given}`, function() {
+    assert(convertStringToSeconds(given) === result);
+  });
+});
+
 function it(desc, fn) {
   try {
     fn();
@@ -17,8 +34,4 @@ function assert(condition) {
     throw new Error();
   }
 }
-
-it('should return a sum of two integers', function(){
-  assert(myapp.sum(5, 10) === 15);
-});
 </script>

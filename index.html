@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Pipodoro</title>
+  <link rel="icon" href="icons/favicon.svg">
+  <link rel="manifest" href="manifest.json">
   <meta name="description" content="Pomodoro timer with Picture-In-Picture & Sync capabilities. PWA App with zero dependencies.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -54,14 +56,18 @@
   <script type="module">
     import {Timer} from './timer.js';
     import {UI} from './ui.js';
+    import {convertStringToSeconds} from './utils.js';
 
     let ui;
     let timer;
 
+    const timeParam = new URLSearchParams(window.location.search).get('time');
+    const seconds = timeParam ? convertStringToSeconds(timeParam) : 1500;
+
     window.app = {
       setup() {
         ui = new UI({video: document.getElementById('video')});
-        timer = new Timer({seconds: 1500});
+        timer = new Timer({seconds});
         ui.setTime(timer.seconds);
         timer.addEventListener('tick', (evt) => ui.setTime(evt.detail));
       },

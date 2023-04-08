@@ -1,0 +1,11 @@
+{
+  "name": "Pipodoro",
+  "icons": [
+    {
+      "src": "icons/favicon.svg",
+      "sizes": "any"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone"
+}

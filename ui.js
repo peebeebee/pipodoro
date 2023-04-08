@@ -18,7 +18,6 @@ export class UI {
   }
 
   /**
-   * 
    * @param {Number} seconds 
    * @returns {String} MM:SS
    */
@@ -47,7 +46,6 @@ class Painter {
   }
 
   /**
-   * 
    * @param {string} text 
    * @returns void
    */
